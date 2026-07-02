@@ -82,12 +82,25 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 0;
       font-family: 'Space Grotesk', sans-serif;
       font-size: 22px;
       font-weight: 800;
       color: var(--dark);
       letter-spacing: -0.5px;
+    }
+    .logo-tile {
+      width: 36px;
+      height: 36px;
+      background: var(--blue);
+      border-radius: 8px 0 0 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: var(--white);
+      flex-shrink: 0;
+      padding-right: 1px;
     }
     .nav-links {
       display: flex;
@@ -546,7 +559,7 @@
   <!-- ── Navigation ── -->
   <nav>
     <div class="container nav-inner">
-      <a href="/" class="logo"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="7" fill="#2563EB"/><text x="7" y="24" font-family="Space Grotesk, sans-serif" font-size="22" font-weight="800" fill="white">K</text></svg>onduit</a>
+      <a href="/" class="logo"><span class="logo-tile">K</span>onduit</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#services">Services</a></li>
         <li><a href="#how">How It Works</a></li>
@@ -801,7 +814,7 @@
   <!-- ── Footer ── -->
   <footer>
     <div class="container footer-inner">
-      <a href="/" class="logo"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="7" fill="#2563EB"/><text x="7" y="24" font-family="Space Grotesk, sans-serif" font-size="22" font-weight="800" fill="white">K</text></svg>onduit</a>
+      <a href="/" class="logo"><span class="logo-tile">K</span>onduit</a>
       <p>© 2026 GetKonduit. All rights reserved.</p>
       <ul class="footer-links">
         <li><a href="#services">Services</a></li>
