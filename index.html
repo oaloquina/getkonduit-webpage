@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GetKonduit — AI Automations for Trades Businesses</title>
+  <meta name="description" content="GetKonduit builds AI-powered automations for HVAC, plumbing, and roofing businesses. Stop losing leads and wasting time on admin — let automation handle it." />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #2563EB;
+      --blue-dk: #1D4ED8;
+      --dark:    #111827;
+      --gray:    #6B7280;
+      --light:   #F9FAFB;
+      --border:  #E5E7EB;
+      --white:   #FFFFFF;
+      --radius:  8px;
+      --max:     1120px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3 { line-height: 1.2; font-weight: 700; }
+    p { color: var(--gray); }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-block;
+      padding: 13px 28px;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: var(--blue-dk); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--blue);
+      border: 2px solid var(--blue);
+    }
+    .btn-outline:hover { background: var(--blue); color: var(--white); }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--blue); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-cta { font-size: 14px; padding: 10px 20px; }
+
+    /* Mobile nav toggle */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      width: 22px;
+      height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 100px 0 80px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #EFF6FF;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      border: 1px solid #BFDBFE;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 60px);
+      color: var(--dark);
+      max-width: 780px;
+      margin: 0 auto 20px;
+      letter-spacing: -1px;
+    }
+    .hero h1 em { color: var(--blue); font-style: normal; }
+    .hero p {
+      font-size: 18px;
+      max-width: 560px;
+      margin: 0 auto 40px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .hero-trust {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--gray);
+    }
+    .hero-trust .stars { color: #FBBF24; letter-spacing: 2px; }
+
+    /* ── Problem ── */
+    .problem {
+      background: var(--light);
+      padding: 80px 0;
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .problem-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+    }
+    .problem-card .icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .problem-card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+    .problem-card p { font-size: 14px; }
+
+    /* ── Section headers ── */
+    .section-header { text-align: center; }
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .section-header h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      color: var(--dark);
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+    .section-header p {
+      font-size: 17px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── Services ── */
+    .services { padding: 80px 0; }
+
+    /* Featured automation card */
+    .featured-automation {
+      margin-top: 56px;
+      background: var(--dark);
+      border-radius: 12px;
+      padding: 48px 48px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 40px;
+      align-items: start;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-automation::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .featured-badge {
+      position: absolute;
+      top: 24px; right: 24px;
+      background: #16a34a;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 100px;
+      letter-spacing: 0.5px;
+    }
+    .featured-emoji {
+      font-size: 52px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .featured-content h3 {
+      font-size: 26px;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .featured-content > p {
+      font-size: 16px;
+      color: #9CA3AF;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .feature-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+      margin-bottom: 32px;
+    }
+    .feature-list li {
+      font-size: 14px;
+      color: #D1D5DB;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .feature-list li::before {
+      content: '✓';
+      color: #60A5FA;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Roadmap section */
+    .roadmap-intro {
+      margin-top: 64px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .roadmap-intro h3 {
+      font-size: 22px;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .roadmap-intro p { font-size: 15px; max-width: 440px; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .service-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      opacity: 0.85;
+    }
+    .service-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+      opacity: 1;
+    }
+    .service-card .coming-badge {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: var(--light);
+      color: var(--gray);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      background: #EFF6FF;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    .service-card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+    .service-card p { font-size: 14px; line-height: 1.65; }
+
+    /* ── How it works ── */
+    .how {
+      background: var(--light);
+      padding: 80px 0;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 40px;
+      margin-top: 56px;
+      position: relative;
+    }
+    .step { text-align: center; }
+    .step-num {
+      width: 52px;
+      height: 52px;
+      background: var(--blue);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0 auto 20px;
+    }
+    .step h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+    .step p { font-size: 14px; max-width: 220px; margin: 0 auto; }
+
+    /* ── Results ── */
+    .results { padding: 80px 0; }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      margin-top: 56px;
+    }
+    .result-stat { text-align: center; }
+    .result-stat .number {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .result-stat .label {
+      font-size: 15px;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    /* ── Contact ── */
+    .contact {
+      background: var(--light);
+      padding: 80px 0;
+    }
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      margin-top: 56px;
+    }
+    .contact-info h3 {
+      font-size: 22px;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+    .contact-info p { font-size: 15px; line-height: 1.7; margin-bottom: 24px; }
+    .contact-points { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .contact-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--gray);
+    }
+    .contact-points li span.check {
+      color: var(--blue);
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Form */
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px 32px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-group label { font-size: 13px; font-weight: 600; color: var(--dark); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 14px;
+      color: var(--dark);
+      background: var(--white);
+      font-family: inherit;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-submit { width: 100%; padding: 14px; font-size: 16px; margin-top: 4px; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-inner p { font-size: 13px; }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--blue); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
+        padding: 20px 24px;
+        gap: 20px;
+        z-index: 99;
+      }
+      .nav-links.open .nav-cta { display: inline-block; }
+      .hero { padding: 64px 0 56px; }
+      .featured-automation {
+        grid-template-columns: 1fr;
+        padding: 36px 24px;
+        gap: 24px;
+      }
+      .feature-list { grid-template-columns: 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="/" class="logo">Get<span>Konduit</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#contact" class="btn btn-primary nav-cta">Contact Us</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">📲 SMS Callback Automation — Live &amp; Ready to Deploy</div>
+      <h1>Every Missed Call Is<br>a Lost Job. <em>Not Anymore.</em></h1>
+      <p>GetKonduit's SMS Callback automation instantly texts anyone who calls your HVAC, plumbing, or roofing business and doesn't get through — re-engaging the lead in seconds before they call your competitor.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Contact Us</a>
+        <a href="#how" class="btn btn-outline">See How It Works</a>
+      </div>
+      <div class="hero-trust">
+        <span class="stars">★★★★★</span>
+        <span>Trusted by trades businesses across the US</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Problem ── -->
+  <section class="problem">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">The Problem</span>
+        <h2>A missed call isn't just a missed call. It's a missed job.</h2>
+        <p>Studies show 85% of callers who can't reach a business won't call back. They call the next name on the list.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="icon">📞</div>
+          <h3>You can't always answer</h3>
+          <p>You're on a job site, under a sink, on a roof. Missed calls are unavoidable — but losing those leads doesn't have to be.</p>
+        </div>
+        <div class="problem-card">
+          <div class="icon">⏱️</div>
+          <h3>Speed wins the job</h3>
+          <p>The business that responds first gets the booking. Most shops respond in hours. GetKonduit responds in seconds.</p>
+        </div>
+        <div class="problem-card">
+          <div class="icon">🔁</div>
+          <h3>No system to follow up</h3>
+          <p>Even when you mean to call back, it slips through the cracks. There's no consistent process and leads keep falling away.</p>
+        </div>
+        <div class="problem-card">
+          <div class="icon">💸</div>
+          <h3>Every missed lead has a cost</h3>
+          <p>If the average job is worth $500–$2,000, even a handful of missed calls per week adds up to tens of thousands per year.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services ── -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">What We Build</span>
+        <h2>Start with one automation. Scale as your business grows.</h2>
+        <p>Our first automation is live and ready to deploy. More are in the pipeline — each one building on the last.</p>
+      </div>
+
+      <!-- Featured: SMS Callback -->
+      <div class="featured-automation">
+        <div class="featured-badge">✅ Available Now</div>
+        <div class="featured-emoji">📲</div>
+        <div class="featured-content">
+          <h3>SMS Callback Automation</h3>
+          <p>When a customer calls and doesn't get through, GetKonduit fires an instant, personalized text — so you're re-engaging the lead in seconds, not hours. No more lost jobs from missed calls.</p>
+          <ul class="feature-list">
+            <li>Triggers the moment a call is missed</li>
+            <li>Sends a branded SMS within seconds</li>
+            <li>Works with your existing phone number</li>
+            <li>Keeps the conversation going until they book</li>
+            <li>No new hardware or software required</li>
+            <li>Full setup handled by GetKonduit</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">Get This Set Up →</a>
+        </div>
+      </div>
+
+      <!-- Roadmap -->
+      <div class="roadmap-intro">
+        <div>
+          <h3>Your automation roadmap</h3>
+          <p>Once SMS Callback is running, here's what we build next — layered on as your business is ready.</p>
+        </div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="coming-badge">Coming Soon</span>
+          <div class="service-icon">📅</div>
+          <h3>Automated Scheduling</h3>
+          <p>Let customers self-book directly into your calendar. Confirmations, reminders, and dispatch notifications — zero back-and-forth.</p>
+        </div>
+        <div class="service-card">
+          <span class="coming-badge">Coming Soon</span>
+          <div class="service-icon">🧾</div>
+          <h3>Invoice & Payment Automation</h3>
+          <p>Invoices go out the moment a job is complete. Payment reminders follow automatically so cash hits your account faster.</p>
+        </div>
+        <div class="service-card">
+          <span class="coming-badge">Coming Soon</span>
+          <div class="service-icon">⭐</div>
+          <h3>Review Request Automation</h3>
+          <p>After every completed job, customers get a nudge to leave a review — more 5-star ratings without you having to ask.</p>
+        </div>
+        <div class="service-card">
+          <span class="coming-badge">Coming Soon</span>
+          <div class="service-icon">🔗</div>
+          <h3>CRM & App Integrations</h3>
+          <p>Connect ServiceTitan, Jobber, HubSpot, and more — so data flows where it needs to go without manual entry.</p>
+        </div>
+        <div class="service-card">
+          <span class="coming-badge">Coming Soon</span>
+          <div class="service-icon">📊</div>
+          <h3>Custom Reporting Dashboards</h3>
+          <p>Weekly performance reports delivered to your inbox automatically — know your numbers without digging through spreadsheets.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── How It Works ── -->
+  <section class="how" id="how">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">How It Works</span>
+        <h2>Up and running in days, not months.</h2>
+        <p>We handle the technical side so you don't have to learn anything new.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Workflow Audit</h3>
+          <p>We map where you're losing time and money — scheduling, follow-ups, invoicing, reviews — and prioritize the biggest wins first.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Custom Build</h3>
+          <p>We design and build your automations from scratch, integrated with the tools you already use. No disruption to how your business runs today.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Launch & Support</h3>
+          <p>We go live, watch the results, and keep everything running. Ongoing support so your automations grow as your business grows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Results ── -->
+  <section class="results" id="results">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Results</span>
+        <h2>What automation does for trades businesses.</h2>
+        <p>Real outcomes our clients see after automating their workflows.</p>
+      </div>
+      <div class="results-grid">
+        <div class="result-stat">
+          <div class="number">5x</div>
+          <div class="label">Faster lead response time</div>
+        </div>
+        <div class="result-stat">
+          <div class="number">40%</div>
+          <div class="label">More bookings from existing leads</div>
+        </div>
+        <div class="result-stat">
+          <div class="number">10+</div>
+          <div class="label">Hours saved per week on admin</div>
+        </div>
+        <div class="result-stat">
+          <div class="number">3x</div>
+          <div class="label">More online reviews collected</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact ── -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Get In Touch</span>
+        <h2>Let's talk about your business.</h2>
+        <p>Tell us what's slowing you down and we'll show you exactly what we'd automate first.</p>
+      </div>
+      <div class="contact-wrap">
+        <div class="contact-info">
+          <h3>What happens after you reach out</h3>
+          <p>We'll review your message and get back to you within one business day. If it's a good fit, we'll book a short call to walk through your business and show you what's possible.</p>
+          <ul class="contact-points">
+            <li><span class="check">✓</span> Free 30-minute workflow audit — no pitch, just a real look at your business</li>
+            <li><span class="check">✓</span> Custom automation plan built for your trade and tools</li>
+            <li><span class="check">✓</span> No long-term contracts — results first, then we talk commitment</li>
+            <li><span class="check">✓</span> Works with ServiceTitan, Jobber, HubSpot, and most other tools</li>
+          </ul>
+        </div>
+        <div class="form-card">
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="John" required />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Smith" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" placeholder="john@yourcompany.com" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
+            </div>
+            <div class="form-group">
+              <label for="trade">Your trade</label>
+              <select id="trade" name="trade">
+                <option value="">Select your trade…</option>
+                <option>HVAC</option>
+                <option>Plumbing</option>
+                <option>Roofing</option>
+                <option>Electrical</option>
+                <option>General Contracting</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">What's your biggest challenge right now?</label>
+              <textarea id="message" name="message" placeholder="e.g. We're losing leads because we can't follow up fast enough…"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">Send Message →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container footer-inner">
+      <a href="/" class="logo">Get<span>Konduit</span></a>
+      <p>© 2026 GetKonduit. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // ── Mobile nav toggle ──
+    const toggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Close nav on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // ── Contact form submission ──
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      btn.textContent = '✓ Message sent!';
+      btn.style.background = '#16a34a';
+      btn.disabled = true;
+      // Reset after 4s for demo purposes
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.style.background = '';
+        btn.disabled = false;
+        form.reset();
+      }, 4000);
+    });
+  </script>
+
+</body>
+</html>
